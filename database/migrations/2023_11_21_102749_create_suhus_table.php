@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('id_buah')->constrained('buahs');
             $table->float('nilaisuhu');
             $table->timestamps();
-        });
+                });
     }
 
     /**
