@@ -5,12 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class buah extends Model
+class Buah extends Model
 {
-    protected $table = 'buahs'; // Nama tabel yang sesuai
-    protected $fillable = [
-        'namabuah',
-        'beratbuah',
-        // Atribut-atribut lain yang sesuai
-    ];
+    protected $fillable = ['nama', 'berat'];
+
+    public function suhu()
+    {
+        return $this->hasMany(Suhu::class, 'id_buah');
+    }
+
+    public function gas()
+    {
+        return $this->hasMany(Gas::class, 'id_buah');
+    }
 }

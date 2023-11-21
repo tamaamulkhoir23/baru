@@ -4,7 +4,7 @@
 @section('header', 'Data Pemantauan Periodik')
 @section('content')
 <div class="container">
-    <button class="btn btn-primary mb-4" onclick="location.href='/tambah-data'">Tambah Data</button>
+    <button class="btn btn-primary mb-4" onclick="location.href='{{ route('suhu.create') }}'">Tambah Data</button>
 
     <table class="table table-bordered table-striped">
         <thead>
@@ -23,8 +23,14 @@
                 <td>{{ $data->namasensor }}</td>
                 <td>{{ $data->nilaisuhu }}</td>
                 <td>
-                    <a class ="btn btn-warning" href="editgas">Edit</a>
-                    <a class ="btn btn-danger" href="hapusgas">Hapus</a>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-warning btn-sm" href="{{ route('suhu.edit', ['id' => $data->id]) }}" style="width: 60px; margin-right: 5px;">Edit</a>
+                        <form action="{{ route('suhu.destroy', $data->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" style="background-color: red; width: 60px;">Hapus</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @endforeach

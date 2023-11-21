@@ -11,6 +11,8 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="{{ asset('assets/img/icons/icon-48x48.png') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <link rel="canonical" href="index.htm">
 

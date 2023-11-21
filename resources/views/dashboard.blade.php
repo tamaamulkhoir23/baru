@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<div class="col-xl-6 col-xxl-7">
+{{-- <div class="col-xl-6 col-xxl-7">
                 <div class="card flex-fill w-100">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Suhu</h5>
@@ -79,5 +79,51 @@
                         </div>
                     </div>
                 </div>
+</div> --}}
+<div style="width: 80%;">
+    <canvas id="myChart"></canvas>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Ambil data dari route yang telah Anda buat
+        fetch('/chart-data')
+            .then(response => response.json())
+            .then(data => {
+                // Ubah data sesuai dengan kebutuhan Anda
+                var labels = data.map(entry => entry.created_at);
+                var values = data.map(entry => entry.nilaisuhu);
+
+                // Gambar chart menggunakan Chart.js
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Data Suhu',
+                            data: values,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+    });
+</script>
+
 @endsection

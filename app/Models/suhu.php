@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class suhu extends Model
+class Suhu extends Model
 {
-    protected $table = 'suhus'; // Nama tabel yang sesuai
-    protected $fillable = [
-        'namasensor',
-        'nilaisuhu',
-        // Atribut-atribut lain yang sesuai
-    ];
+    protected $fillable = ['nilaisuhu','created_at','updated_at'];
+
+    public function buah()
+    {
+        return $this->belongsTo(Buah::class, 'id_buah');
+    }
 }

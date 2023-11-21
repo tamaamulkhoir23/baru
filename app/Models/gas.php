@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class gas extends Model
+class Gas extends Model
 {
-    protected $table = 'gases'; // Nama tabel yang sesuai
-    protected $fillable = [
-        'namasensor',
-        'jenisgas',
-        'nilaigas',
-        // Atribut-atribut lain yang sesuai
-    ];
+    protected $fillable = ['nilaigas','created_at','updated_at'];
+
+    public function buah()
+    {
+        return $this->belongsTo(Buah::class, 'id_buah');
+    }
 }

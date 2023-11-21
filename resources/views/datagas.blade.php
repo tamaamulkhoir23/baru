@@ -4,7 +4,7 @@
 @section('header', 'Data Pemantauan Periodik')
 @section('content')
 <div class="container">
-    <button class="btn btn-primary mb-4" onclick="location.href='/tambah-data'">Tambah Data</button>
+    <button class="btn btn-primary mb-4" onclick="location.href='{{ route('gas.create') }}'">Tambah Data</button>
 
     <table class="table table-bordered table-striped">
         <thead>
@@ -12,21 +12,29 @@
                 <th>No</th>
                 <th>Nama Sensor</th>
                 <th>Jenis Gas</th>
-                <th>Nilai Gas (ppm)</th>
+                <th>Nilai Gas</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
+            @foreach ($gas as $data)
             <tr>
-                <td>1</td>
-                <td>Sensor Gas</td>
-                <td>Gas</td>
-                <td>350</td>
+                <td>{{ $data->id }}</td>
+                <td>{{ $data->namasensor }}</td>
+                <th>{{ $data->jenisgas }}</th>
+                <td>{{ $data->nilaigas }}</td>
                 <td>
-                    <a class ="btn btn-warning" href="editgas">Edit</a>
-                    <a class ="btn btn-danger" href="hapusgas">Hapus</a>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-warning btn-sm" href="{{ route('gas.edit', ['id' => $data->id]) }}" style="width: 60px; margin-right: 5px;">Edit</a>
+                        <form action="{{ route('gas.destroy', $data->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" style="background-color: red; width: 60px;">Hapus</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
+        @endforeach
         </tbody>
     </table>
 </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Buah;
+use App\Models\Buah as ModelsBuah;
 
 class buahcontroller extends Controller
 {
@@ -11,7 +13,10 @@ class buahcontroller extends Controller
      */
     public function index()
     {
-        //
+        $buah =Buah::all();
+        return view('databuah',[
+            'buah' => $buah
+        ]);
     }
 
     /**
@@ -19,15 +24,21 @@ class buahcontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('buahcreate');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id' => 'nullable',
+            'nama' => 'required',
+            'berat' => 'required',
+        ]);
+
+        Buah::create($request->all());
+
+        return redirect()->route('databuah')
+            ->with('success', 'buah berhasil ditambahkan.');
     }
 
     /**
@@ -41,24 +52,50 @@ class buahcontroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $buah = Buah::find($id);
+    
+        if (!$buah) {
+            return redirect()->route('databuah')->with('error', 'Data buah tidak ditemukan.');
+        }
+    
+        return view('editbuah', compact('buah'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'id' => 'nullable',
+            'nama' => 'required',
+            'berat' => 'required',
+        ]);
+    
+        // Temukan data buah berdasarkan ID atau kunci unik lainnya
+        $buah = Buah::find($id);
+    
+        if (!$buah) {
+            return redirect()->route('databuah')->with('error', 'Data buah tidak ditemukan.');
+        }
+    
+        // Update data buah
+        $buah->update($validatedData);
+    
+        return redirect()->route('databuah')->with('success', 'Data buah berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Temukan data buah berdasarkan ID atau kunci unik lainnya
+        $buah = Buah::find($id);
+    
+        if (!$buah) {
+            return redirect()->route('databuah')->with('error', 'Data buah tidak ditemukan.');
+        }
+    
+        // Hapus data buah
+        $buah->delete();
+    
+        return redirect()->route('databuah')->with('success', 'Data buah berhasil dihapus.');
     }
 }
