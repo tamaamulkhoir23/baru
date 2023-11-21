@@ -16,7 +16,7 @@ return new class extends Migration
             $table->boolean('is_researched')->default(FALSE);
             $table->string('nama');
             $table->double('berat');
-         });
+        });
     }
 
     /**
