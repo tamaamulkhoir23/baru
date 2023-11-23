@@ -19,17 +19,29 @@
             @foreach ($buah as $data)
             <tr>
                 <td>{{ $data->id }}</td>
-                <td>{{ $data->namabuah }}</td>
-                <th>{{ $data->beratbuah }}</th>
+                <td>{{ $data->nama }}</td>
+                <th>{{ $data->berat}}</th>
                 <td>
                     <div class="btn-group" role="group">
-                        <a class="btn btn-warning btn-sm" href="{{ route('buah.edit', ['id' => $data->id]) }}" style="width: 60px; margin-right: 5px;">Edit</a>
+                        <a class="btn btn-warning btn-sm" style="margin: 5px" href="{{ route('buah.edit', ['id' => $data->id]) }}">Edit</a>
+                    
                         <form action="{{ route('buah.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" style="background-color: red; width: 60px;">Hapus</button>
+                            <button type="submit" style="margin: 5px" class="btn btn-danger btn-sm ml-2">Hapus</button>
                         </form>
+                    
+                        <div class="btn-group" role="group">
+                            @if($data->is_researched)
+                                <a href="{{ route('buah.researchOff', ['id' => $data->id]) }}" style="margin: 5px" class="btn btn-danger btn-sm ml-2">Turn Off</a>
+                            @else
+                                <a href="{{ route('buah.researchOn', ['id' => $data->id]) }}" style="margin: 5px" class="btn btn-success btn-sm ml-2">Turn On</a>
+                            @endif
+                        </div>
                     </div>
+                    
+                        
+                    </div>                    
                 </td>
             </tr>
         @endforeach

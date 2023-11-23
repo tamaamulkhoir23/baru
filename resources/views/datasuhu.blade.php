@@ -4,15 +4,13 @@
 @section('header', 'Data Pemantauan Periodik')
 @section('content')
 <div class="container">
-    <button class="btn btn-primary mb-4" onclick="location.href='{{ route('suhu.create') }}'">Tambah Data</button>
-
+    <h2 class="mb-5">Data Suhu</h2>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Sensor</th>
                 <th>Nilai Suhu (°C)</th>
-                <th>Aksi</th>
+                <th>Waktu</th>
             </tr>
         </thead>
         <tbody>
@@ -20,18 +18,8 @@
             @foreach ($suhu as $data)
             <tr>
                 <td>{{ $data->id }}</td>
-                <td>{{ $data->namasensor }}</td>
                 <td>{{ $data->nilaisuhu }}</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-warning btn-sm" href="{{ route('suhu.edit', ['id' => $data->id]) }}" style="width: 60px; margin-right: 5px;">Edit</a>
-                        <form action="{{ route('suhu.destroy', $data->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" style="background-color: red; width: 60px;">Hapus</button>
-                        </form>
-                    </div>
-                </td>
+                <td>{{ $data->created_at }}</td>
             </tr>
         @endforeach
 

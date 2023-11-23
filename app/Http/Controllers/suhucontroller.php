@@ -108,6 +108,13 @@ class suhucontroller extends Controller
     return response()->json($suhuData);
 }
 
+public function chartData2()
+{
+    $gasData = Gas::all();
+
+    return response()->json($gasData);
+}
+
 
     public function idx()
     {

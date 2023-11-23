@@ -12,17 +12,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    // ...
-
     protected $fillable = [
-        'name', 'password', 'username',
+        'username', 'password',
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
-    // Menambahkan properti $username
-    protected $username = 'username';
 
-    // ...
 }

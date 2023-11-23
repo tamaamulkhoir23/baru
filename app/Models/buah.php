@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Buah extends Model
 {
-    protected $fillable = ['nama', 'berat'];
+    protected $fillable = ['nama', 'berat', 'is_researched'];
+
+    public $timestamps = false;
 
     public function suhu()
     {
@@ -18,4 +20,5 @@ class Buah extends Model
     {
         return $this->hasMany(Gas::class, 'id_buah');
     }
+
 }

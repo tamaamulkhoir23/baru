@@ -14,14 +14,14 @@
                 @csrf
                 {{-- Input Nama Buah --}}
                 <div class="mb-3">
-                    <label for="namabuah" class="form-label">Nama Buah</label>
-                    <input type="text" name="namabuah" id="namabuah" class="form-control" required>
+                    <label for="nama" class="form-label">Nama Buah</label>
+                    <input type="text" name="nama" id="nama" class="form-control" required>
                 </div>
 
                 {{-- Input Berat buah --}}
                 <div class="mb-3">
                     <label for="beratbuah" class="form-label">Berat Buah</label>
-                    <input type="text" name="beratbuah" id="beratbuah" class="form-control" required>
+                    <input type="text" name="berat" id="berat" class="form-control" required>
                 </div>
 
                 {{-- Tombol Submit --}}

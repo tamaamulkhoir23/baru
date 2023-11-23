@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('buahs', function (Blueprint $table) {
             $table->id();
-            $table->boolean('is_researched')->default(FALSE);
+            $table->boolean('is_researched')->default(TRUE);
             $table->string('nama');
             $table->double('berat');
         });
