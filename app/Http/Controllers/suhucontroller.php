@@ -103,6 +103,7 @@ class suhucontroller extends Controller
     
     public function chartData()
 {
+    
     $suhuData = Suhu::all();
 
     return response()->json($suhuData);

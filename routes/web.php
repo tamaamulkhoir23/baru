@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\buahcontroller;
 use App\Http\Controllers\gascontroller;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\periodikcontroller;
 use App\Http\Controllers\suhucontroller;
-use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,39 +17,35 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return view('login');
+    return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-Route::get('/dataperiodik', function () {
-    return view('dataperiodik'); // Gantilah dengan nama view yang sesuai.
-});
-
-Route::get('/databuah', function () {
-    return view('databuah'); // Gantilah dengan nama view yang sesuai.
-});
-
-Route::get('/chart-data', [suhucontroller::class, 'chartData']);
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('masuk');
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
 
 
-Route::get('/datagas', function () {
-    return view('datagas'); // Gantilah dengan nama view yang sesuai.
-});
+Route::middleware(['auth.login'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/app', function () {
-    return view('layouts.app');
-});
+    Route::get('/dataperiodik', function () {
+        return view('dataperiodik');
+    });
 
-Route::get('/exm', function () {
-    return view('pages.example');
-});
+Route::get('/buah/{id}/research-on', [buahcontroller::class, 'researchOn'])->name('buah.researchOn');
+Route::get('/buah/{id}/research-off', [buahcontroller::class, 'researchOff'])->name('buah.researchOff');    
 
+Route::get('/chart-data/{buahId}', [suhucontroller::class, 'chartData']);
+Route::get('/chart-data2', [suhucontroller::class, 'chartData2']); // Perbaikan pada method
+
+
+Route::get('/dataperiodik', [periodikcontroller::class, 'index'])->name('dataperiodik');
 Route::get('/api/suhu', [suhucontroller::class, 'getSuhuData']);
+Route::post('/simpandata', [ApiController::class, 'storeData']);
 
 Route::get('/dashboard', [suhucontroller::class, 'idx'])->name('jumlahsuhu');
 
@@ -73,4 +70,4 @@ Route::post('/suhustore', [suhucontroller::class, 'store'])->name('suhu.store');
 Route::get('/editsuhu/{id}', [suhucontroller::class, 'edit'])->name('suhu.edit');
 Route::put('/datasuhu/{id}', [suhucontroller::class, 'update'])->name('suhu.update');
 Route::delete('/datasuhu/{id}', [suhucontroller::class, 'destroy'])->name('suhu.destroy');
-
+});
